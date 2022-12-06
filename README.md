@@ -65,3 +65,43 @@ const wasmModule = await WebAssembly.instantiate(wasmBytes, {
   }
 });
 ```
+
+# Example: Echo
+
+```rust
+// Rust WebAssembly module echo.wasm
+
+use externref_polyfill::ExternRef;
+
+extern "C" {
+    fn echo_echo(output_extern_ref: i64);
+}
+
+#[no_mangle]
+pub fn echo(input: i64) {
+    let extern_ref_input:ExternRef = input.into();
+    unsafe {
+        echo_echo(extern_ref_input.value);
+    }
+}
+```
+
+```typescript
+const response = await fetch('echo.wasm');
+const wasmBytes = await response.arrayBuffer();
+const wasmModule = await WebAssembly.instantiate(wasmBytes, {
+  env: {
+    externref_drop: (externRef:bigint) => {
+      const index = Number(externRef & BigInt(0xffffffff));
+      const generation = Number(externRef >> BigInt(32));
+      console.log(`dropped externref with index ${index} and generation ${generation} and value ${JSON.stringify(ExternRef.load(externRef))}`);
+      ExternRef.delete(externRef);
+    },
+    echo_echo: (externRef:bigint) => {
+      console.log(ExternRef.load(externRef)+"...");
+    }
+  }
+});
+const textExternRef = ExternRef.create("Hello, World!");
+(wasmModule.instance.exports.echo as CallableFunction)(textExternRef);
+```
