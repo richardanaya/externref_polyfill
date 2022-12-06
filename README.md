@@ -8,24 +8,25 @@ WebAssembly is expecting a powerful way to be able to refer to objects in javasc
 import { ExternRef } from 'externref_polyfill';
 
 // call a function on WebAssembly module with an ExternRef
-const myObjectExternRef = ExternRef.create({ foo: 'bar' });
-const result = wasmModule.call(myObjectExternRef);
+const r = ExternRef.create({ foo: 'bar' });
+const result = wasmModule.instance.exports.call(r);
 
 // on the receiving end in Rust you will have a i64 bigint
-fn call(my_object_extern_ref: i64) {
+#[no_mangle]
+fn call(r: i64) {
   // do something with ref
-  do_something_with_ref(my_object_extern_ref);
+  do_something_with_ref(r);
 }
 
 // on the receiving end in JavaScript
-function do_something_with_ref(myObjectExternRef: bigint) {
-
-  const value = ExternRef.load(myObjectExternRef);
-  // do something with the ExternRef
+function do_something_with_ref(r: bigint) {
+  const value = ExternRef.load(r);
+  
+  // do something with the value of the ExternRef
   console.log(value.foo);
   
   // then when you are done with the 
-  ExternRef.delete(myObjectExternRef);
+  ExternRef.delete(r);
 }
 ```
 
@@ -36,8 +37,13 @@ A Rust library exists `extern_polyfill` that can help you drop the ExternRefs wh
 ```rust
 use externref_polyfill::ExternRef;
 
-fn call(my_object_extern_ref: ExternRef) {
-    const owned_extern_ref = my_object_extern_ref.into::<ExternRef>();
+extern "C" {
+  fn do_something_with(r:i64);
+}
+
+#[no_mangle]
+fn call(r: ExternRef) {
+    const owned_extern_ref:ExternRef = r.into();
     
     // goes out of scope here and auto drops
 }
