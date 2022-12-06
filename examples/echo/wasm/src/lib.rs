@@ -8,6 +8,6 @@ extern "C" {
 pub fn echo(input: i64) {
     let extern_ref_input:ExternRef = input.into();
     unsafe {
-        echo_echo(extern_ref_input);
+        echo_echo(extern_ref_input.into());
     }
 }
