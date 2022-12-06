@@ -2,5 +2,7 @@
 name = "externref_polyfill"
 version = "0.0.0"
 edition = "2021"
+description = "A polyfill for the externref in WebAssembly"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
