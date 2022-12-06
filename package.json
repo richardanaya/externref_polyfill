@@ -1,6 +1,6 @@
 {
     "name": "externref_polyfill",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A simple polyfill library for WebAssembly externref",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

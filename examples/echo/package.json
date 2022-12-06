@@ -13,6 +13,6 @@
     "vite": "^3.2.3"
   },
   "dependencies": {
-    "externref_polyfill": "^0.0.0"
+    "externref_polyfill": "0.0.3"
   }
 }

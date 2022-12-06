@@ -27,7 +27,9 @@ document.querySelector<HTMLButtonElement>('#run')?.addEventListener('click', asy
   const wasmModule = await WebAssembly.instantiate(wasmBytes, {
     env: {
       externref_drop: (externRef:bigint) => {
-        console.log("dropped reference");
+        const index = Number(externRef & BigInt(0xffffffff));
+        const generation = Number(externRef >> BigInt(32));
+        console.log(`dropped externref with index ${index} and generation ${generation} and value ${JSON.stringify(ExternRef.load(externRef))}`);
         ExternRef.delete(externRef);
       },
       echo_echo: (externRef:bigint) => {
