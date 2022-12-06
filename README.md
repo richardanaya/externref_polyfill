@@ -101,5 +101,5 @@ const wasmModule = await WebAssembly.instantiate(wasmBytes, {
   }
 });
 const textExternRef = ExternRef.create("Hello, World!");
-(wasmModule.instance.exports.echo as CallableFunction)(textExternRef);
+wasmModule.instance.exports.echo(textExternRef);
 ```
