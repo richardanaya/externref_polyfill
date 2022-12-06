@@ -11,6 +11,6 @@ dependencies = [
 
 [[package]]
 name = "externref_polyfill"
-version = "0.0.2"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "52896f63a0b86e239df37240dbf789cbcad993326d164f4d964ebc00909b9818"
+checksum = "bd600a1142026fb5a49bc130be89858a6e1b1a5e4bcb5c6b58064bb390810436"

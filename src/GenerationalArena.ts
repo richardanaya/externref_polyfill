@@ -1,5 +1,9 @@
+
+const MAX_GENERATION = 0xfffffff0;
+
 export class GenerationalArena {
   private objects: Array<unknown>;
+  // negative generations mean unallocated
   private generations: Array<number>;
   private freeList: Array<number>;
   private nextIndex: number;
@@ -18,8 +22,9 @@ export class GenerationalArena {
     } else {
       index = this.nextIndex++;
     }
+    const currentGeneration = this.generations[index];
     this.objects[index] = o;
-    this.generations[index] = 0;
+    this.generations[index] = currentGeneration === undefined? 1 : Math.abs(currentGeneration) + 1;
 
     // return handle as big integer that contains
     // index in low 32 bits and generation in high 32 bits
@@ -32,7 +37,12 @@ export class GenerationalArena {
   public deallocate(handle: bigint): void {
     const index = Number(handle & BigInt(0xffffffff));
     const generation = Number(handle >> BigInt(32));
-    if (generation === this.generations[index]) {
+    if(generation >= MAX_GENERATION) {
+      this.generations[index] = -this.generations[index];
+      // don't put handle in free list as it's already totally used
+      // this will prevent it from being reused ever again
+    } else if (generation === this.generations[index]) {
+      this.generations[index] = -this.generations[index];
       this.freeList.push(index);
     } else {
       throw new Error("attempt to deallocate invalid handle");
