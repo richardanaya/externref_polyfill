@@ -34,7 +34,7 @@ Remember it's important to delete your ExternRefs when you are done with them.  
 A Rust library exists `extern_polyfill` that can help you drop the ExternRefs when they go out of scope.
 
 ```rust
-use extern_polyfill::ExternRef;
+use externref_polyfill::ExternRef;
 
 fn call(my_object_extern_ref: ExternRef) {
     const owned_extern_ref = my_object_extern_ref.into::<ExternRef>();
