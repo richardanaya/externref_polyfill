@@ -46,7 +46,7 @@ extern "C" {
 }
 
 #[no_mangle]
-fn call(r: ExternRef) {
+fn call(r:i64) {
     const owned_extern_ref:ExternRef = r.into();
     
     // goes out of scope here and auto drops
