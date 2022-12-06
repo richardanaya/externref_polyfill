@@ -5,7 +5,7 @@ WebAssembly is expecting a powerful way to be able to refer to objects in javasc
 ## Usage
 
 ```js
-import { ExternRef } from 'externref';
+import { ExternRef } from 'externref_polyfill';
 
 // call a function on WebAssembly module with an ExternRef
 const myObjectExternRef = ExternRef.create({ foo: 'bar' });
@@ -31,13 +31,15 @@ function do_something_with_ref(myObjectExternRef: bigint) {
 
 Remember it's important to delete your ExternRefs when you are done with them.  Otherwise they will leak memory.
 
-A Rust library exists `extern-polyfill` that can help you drop the ExternRefs when they go out of scope.
+A Rust library exists `extern_polyfill` that can help you drop the ExternRefs when they go out of scope.
 
 ```rust
 use extern_polyfill::ExternRef;
 
 fn call(my_object_extern_ref: ExternRef) {
-    const owned_extern_ref = my_object_extern_ref.into_owned();
+    const owned_extern_ref = my_object_extern_ref.into::<ExternRef>();
+    
+    // goes out of scope here and auto drops
 }
 ```
 
