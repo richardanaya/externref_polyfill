@@ -1,6 +1,6 @@
 # ExternRef Polyfill
-
-WebAssembly is expecting a powerful way to be able to refer to objects in javascript.  Until then, this library can help enable that functionality. It is a polyfill for the [ExternRef proposal](https://github.com/WebAssembly/reference-types/blob/master/proposals/reference-types/Overview.md).
+ 
+WebAssembly is expecting a powerful way to be able to refer to objects in JavaScript using a concept called [ExternRef](https://github.com/WebAssembly/reference-types/blob/master/proposals/reference-types/Overview.md).  Until then, this library can help enable that functionality in a similar pattern that will make it easy to convert over in some future.
 
 ## Usage
 
