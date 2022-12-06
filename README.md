@@ -15,7 +15,7 @@ import { ExternRef } from 'externref_polyfill';
 const r = ExternRef.create({ foo: 'bar' });
 const result = wasmModule.instance.exports.call(r);
 
-// on the receiving end in Rust you will have a i64 bigint
+// on the receiving end in Rust you will have a i64/bigint handle of the externref
 #[no_mangle]
 fn call(r: i64) {
   // do something with ref
