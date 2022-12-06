@@ -9,4 +9,4 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-externref_polyfill = "0.0.1"
+externref_polyfill = "0.0.2"

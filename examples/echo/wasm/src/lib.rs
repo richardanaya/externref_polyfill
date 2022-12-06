@@ -8,7 +8,6 @@ extern "C" {
 pub fn echo(input: i64) {
     let extern_ref_input:ExternRef = input.into();
     unsafe {
-        // why is an object dropping here?
-        echo_echo((&extern_ref_input).into());
+        echo_echo(extern_ref_input.value);
     }
 }
