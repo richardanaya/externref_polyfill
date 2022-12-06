@@ -4,6 +4,7 @@ WebAssembly is expecting a powerful way to be able to refer to objects in JavaSc
 
 * throws exceptions if you try to load a externref value that's been deleted
 * throws exceptions if you try to delete an externref that's already been deleted
+* isn't dependent on wasm_bindgen
 
 ## Usage
 
