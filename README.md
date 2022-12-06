@@ -32,7 +32,7 @@ function do_something_with_ref(r: bigint) {
 
 Remember it's important to delete your ExternRefs when you are done with them.  Otherwise they will leak memory.
 
-A Rust library exists `extern_polyfill` that can help you drop the ExternRefs when they go out of scope.
+A Rust library exists `externref_polyfill` that can help you drop the ExternRefs when they go out of scope.
 
 ```rust
 use externref_polyfill::ExternRef;
