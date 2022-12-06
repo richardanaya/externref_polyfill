@@ -10,6 +10,12 @@ impl From<i64> for ExternRef {
     }
 }
 
+impl Into<i64> for ExternRef {
+    fn into(self) -> i64 {
+        self.0
+    }
+}
+
 impl Drop for ExternRef {
     fn drop(&mut self) {
         unsafe {
