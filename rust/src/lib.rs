@@ -10,7 +10,7 @@ impl From<i64> for ExternRef {
     }
 }
 
-impl Into<i64> for ExternRef {
+impl Into<i64> for &ExternRef {
     fn into(self) -> i64 {
         self.0
     }
