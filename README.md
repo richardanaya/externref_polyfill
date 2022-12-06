@@ -1,6 +1,9 @@
 # ExternRef Polyfill
  
-WebAssembly is expecting a powerful way to be able to refer to objects in JavaScript using a concept called [ExternRef](https://github.com/WebAssembly/reference-types/blob/master/proposals/reference-types/Overview.md).  Until then, this library can help enable that functionality in a similar pattern that will make it easy to convert over in some future.
+WebAssembly is expecting a powerful way to be able to refer to objects in JavaScript using a concept called [ExternRef](https://github.com/WebAssembly/reference-types/blob/master/proposals/reference-types/Overview.md).  Until then, this library can help enable that functionality in a similar pattern that will make it easy to convert over in some future.  Some useful things this library does:
+
+* throws exceptions if you try to load a externref value that's been deleted
+* throws exceptions if you try to delete an externref that's already been deleted
 
 ## Usage
 
